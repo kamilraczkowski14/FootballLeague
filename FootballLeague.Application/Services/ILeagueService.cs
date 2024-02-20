@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FootballLeague.Domain.Interfaces
+namespace FootballLeague.Application.Services
 {
-    public interface ILeagueRepository
+    public interface ILeagueService
     {
         Task<League> Get(int leagueId);
     }

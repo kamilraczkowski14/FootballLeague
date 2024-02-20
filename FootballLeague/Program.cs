@@ -1,7 +1,7 @@
 using FootballLeague.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using FootballLeague.Infrastructure.Extensions;
-using FootballLeague.Infrastructure.Seeders;
+//using FootballLeague.Infrastructure.Seeders;
 using FootballLeague.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +14,8 @@ builder.Services.AddApplication();
 
 var app = builder.Build();
 
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+//var scope = app.Services.CreateScope();
+//var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
 //await seeder.Seed();
 
 // Configure the HTTP request pipeline.

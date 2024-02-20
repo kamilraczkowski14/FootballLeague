@@ -1,5 +1,8 @@
-﻿using FootballLeague.Domain.Interfaces;
+﻿
+using FootballLeague.Domain.Entities;
+using FootballLeague.Domain.Interfaces;
 using FootballLeague.Infrastructure.Db;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +18,12 @@ namespace FootballLeague.Infrastructure.Repositories
         public LeagueRepository(ApplicationDbContext dbContext) 
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<League> Get(int leagueId)
+        {
+            var league =  await _dbContext.Leagues.FirstOrDefaultAsync(l => l.Id == leagueId);
+            return league;
         }
     }
 }

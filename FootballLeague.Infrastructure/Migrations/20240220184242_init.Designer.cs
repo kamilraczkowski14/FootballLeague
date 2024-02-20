@@ -4,6 +4,7 @@ using FootballLeague.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballLeague.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240220184242_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,14 +45,6 @@ namespace FootballLeague.Infrastructure.Migrations
                     b.HasIndex("SeasonId");
 
                     b.ToTable("Leagues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Jupiler League",
-                            SeasonId = 1
-                        });
                 });
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.Match", b =>
@@ -125,14 +120,6 @@ namespace FootballLeague.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seasons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndYear = 2023,
-                            StartYear = 2022
-                        });
                 });
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.Team", b =>
@@ -417,9 +404,6 @@ namespace FootballLeague.Infrastructure.Migrations
                             b1.Property<int>("TeamId")
                                 .HasColumnType("int");
 
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
-
                             b1.Property<int>("NumberOfDefeats")
                                 .HasColumnType("int");
 
@@ -437,12 +421,10 @@ namespace FootballLeague.Infrastructure.Migrations
 
                             b1.HasKey("TeamId");
 
-                            b1.ToTable("Statistics");
+                            b1.ToTable("Teams");
 
-                            b1.WithOwner("Team")
+                            b1.WithOwner()
                                 .HasForeignKey("TeamId");
-
-                            b1.Navigation("Team");
                         });
 
                     b.Navigation("League");

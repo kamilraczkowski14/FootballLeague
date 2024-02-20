@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FootballLeague.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -247,7 +247,8 @@ namespace FootballLeague.Infrastructure.Migrations
                     AwayTeamId = table.Column<int>(type: "int", nullable: false),
                     HomeTeamScore = table.Column<int>(type: "int", nullable: false),
                     AwayTeamScore = table.Column<int>(type: "int", nullable: false),
-                    MatchDayId = table.Column<int>(type: "int", nullable: false)
+                    MatchDayId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -258,6 +259,11 @@ namespace FootballLeague.Infrastructure.Migrations
                         principalTable: "Matchdays",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Matches_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -315,6 +321,11 @@ namespace FootballLeague.Infrastructure.Migrations
                 column: "MatchDayId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Matches_TeamId",
+                table: "Matches",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_LeagueId",
                 table: "Teams",
                 column: "LeagueId");
@@ -342,9 +353,6 @@ namespace FootballLeague.Infrastructure.Migrations
                 name: "Matches");
 
             migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -352,6 +360,9 @@ namespace FootballLeague.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Matchdays");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "Leagues");
