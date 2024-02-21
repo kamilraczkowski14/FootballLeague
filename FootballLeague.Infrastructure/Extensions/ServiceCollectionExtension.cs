@@ -1,6 +1,7 @@
 ﻿using FootballLeague.Domain.Interfaces;
 using FootballLeague.Infrastructure.Db;
 using FootballLeague.Infrastructure.Repositories;
+using FootballLeague.Infrastructure.Seeder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,8 @@ namespace FootballLeague.Infrastructure.Extensions
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DbConnectionString")));
+
+            services.AddScoped<DbSeeder>();
 
             services.AddScoped<ILeagueRepository, LeagueRepository>();
             services.AddDefaultIdentity<IdentityUser>()

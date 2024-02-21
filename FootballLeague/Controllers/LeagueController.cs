@@ -12,6 +12,7 @@ namespace FootballLeague.Controllers
             _service = service;
         }
 
+
         [HttpGet("League/{leagueId}")]
         public async Task<IActionResult> Index(int leagueId)
         {

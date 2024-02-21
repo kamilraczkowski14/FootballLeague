@@ -4,33 +4,72 @@
     ViewData["Title"] = "Index";
 }
 
+
+<style>
+    .custom-table {
+        background-color: #f8f9fa; /* Lekko ciemniejsze tło */
+        width: 70%;
+        font-weight: bold;
+    }
+
+    .small-table {
+        width: 65%; /* Ustawia szerokość tabeli na 50% */
+        font-size: 15px; /* Zmniejsza rozmiar czcionki w tabeli */
+        text-align: left;
+        font-weight: bold;
+        border: 3px solid red;
+    }
+
+    td {
+        cursor: pointer;
+    }
+
+</style>
+
 <h1>Index</h1>
 
-<div>
-    <h4>League</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeasonId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SeasonId)
-        </dd>
-    </dl>
+<div class="container mt-5">
+    <h1 class="text-center">Jupiler League</h1>
+    <hr>
+    <div class="table-responsive">
+        <!-- Dodany kontener dla responsywności tabeli -->
+        <table class="table table-hover table-borderless custom-table">
+            <thead class="thead-dark">
+                <!-- Dodane ciemne tło dla nagłówka -->
+                <tr>
+                    <th scope="col">Pozycja</th>
+                    <th scope="col"></th>
+                    <th scope="col">Drużyna</th>
+                    <th scope="col">Punkty</th>
+                    <th scope="col">Bramki</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in Model.Teams)
+                {
+                    <tr  onclick="handleRowClick(this)">
+                        <td>@team.Id</td>
+                        <td><img src="@team.LogoUrl" alt="Team Logo" style="width: 26px; height: 30px;"></td>
+                        <td>@team.Name</td>
+                        <td>70</td>
+                        <td>82:26</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="#" class="btn btn-secondary">Back to List</a>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
+<script>
+    function handleRowClick(row) {
+        // Tutaj możesz umieścić kod obsługi kliknięcia wiersza
+        console.log("Kliknięto wiersz: ", row);
+        // Przykładowo, możesz pobrać dane z wiersza
+        var cells = row.getElementsByTagName("td");
+        var teamName = cells[2].innerText;
+        alert("Kliknięto drużynę: " + teamName);
+    }
+</script>

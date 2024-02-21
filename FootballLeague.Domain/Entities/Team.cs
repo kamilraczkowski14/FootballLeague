@@ -12,11 +12,9 @@ namespace FootballLeague.Domain.Entities
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string LogoUrl { get; set; } = default!;
-        public Statistics Statistics { get; set; } = default!;
         public int LeagueId { get; set; }
         public League League { get; set; } = default!;
         public List<Match> Matches { get; set; }
-
 
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FootballLeague.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -219,11 +219,6 @@ namespace FootballLeague.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Statistics_NumberOfMatches = table.Column<int>(type: "int", nullable: false),
-                    Statistics_TotalPoints = table.Column<int>(type: "int", nullable: false),
-                    Statistics_NumberOfWins = table.Column<int>(type: "int", nullable: false),
-                    Statistics_NumberOfDraws = table.Column<int>(type: "int", nullable: false),
-                    Statistics_NumberOfDefeats = table.Column<int>(type: "int", nullable: false),
                     LeagueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

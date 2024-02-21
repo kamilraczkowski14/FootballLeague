@@ -22,7 +22,9 @@ namespace FootballLeague.Infrastructure.Repositories
 
         public async Task<League> Get(int leagueId)
         {
-            var league =  await _dbContext.Leagues.FirstOrDefaultAsync(l => l.Id == leagueId);
+            var league = await _dbContext.Leagues
+                .Include(l => l.Teams)
+                .FirstOrDefaultAsync(l => l.Id == leagueId);
             return league;
         }
     }

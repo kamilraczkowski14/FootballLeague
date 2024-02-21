@@ -20,14 +20,19 @@ namespace FootballLeague.Infrastructure.Db
         public DbSet<Team> Teams { get; set; }
         public DbSet<Matchday> Matchdays { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Statistics> Statistics { get; set; }
 
-      
+        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Team>().OwnsOne(t => t.Statistics);
+            //modelBuilder.Entity<Team>().OwnsOne(t => t.Statistics);
+
+            modelBuilder.Entity<League>()
+    .HasMany(l => l.Teams)
+    .WithOne(t => t.League)
+    .HasForeignKey(t => t.LeagueId);
+
 
             modelBuilder.Entity<Season>().HasData(
                  new Season()
@@ -43,11 +48,22 @@ namespace FootballLeague.Infrastructure.Db
                 {
                     Id = 1,
                     Name = "Jupiler League",
-                    SeasonId = 1
+                    SeasonId = 1,
+                    Teams = new List<Team>()
+                    {
+                        new Team()
+                        {
+                            Id = 1,
+                            Name = "Genk",
+                            Description = "Klub założony w 1988 roku",
+                            LogoUrl = "/images/genk.png",
+                             LeagueId = 1,
+                        }
+                    }
                 }
              );
 
-            /*
+
             modelBuilder.Entity<Team>().HasData(
               new Team
               {
@@ -56,15 +72,9 @@ namespace FootballLeague.Infrastructure.Db
                   Description = "Klub założony w 1988 roku",
                   LogoUrl = "/images/genk.png",
                   LeagueId = 1,
-                  Statistics = new Statistics()
-                  {
-                      NumberOfDefeats = 15,
-                      NumberOfDraws = 4,
-                      NumberOfMatches = 34,
-                      NumberOfWins = 15,
-                      TotalPoints = 60,
-                  }
               },
+              
+              
                         new Team
                         {
                             Id = 2,
@@ -72,14 +82,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Klub założony w 1897 roku",
                             LogoUrl = "/images/royaleuniong.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -88,14 +91,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Klub założony w 1887 roku",
                             LogoUrl = "/images/antwerp.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -104,14 +100,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Klub założony w 1891 roku",
                             LogoUrl = "/images/clubbrugge.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -120,14 +109,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Klub założony w 1900 roku",
                             LogoUrl = "/images/gent.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -136,14 +118,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Klub założony w 1900 roku",
                             LogoUrl = "/images/stliege.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -152,14 +127,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/westerlo.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -168,14 +136,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/cerclebrugge.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -184,14 +145,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/charleroi.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -200,14 +154,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/leuven.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -216,14 +163,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/anderlecht.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -232,14 +172,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/sttruiden.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -248,14 +181,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/kvmechelen.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -264,14 +190,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/kortrijk.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -280,14 +199,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/eupen.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -296,14 +208,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/oostende.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                           
                         },
                         new Team
                         {
@@ -312,14 +217,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "",
                             LogoUrl = "/images/waregem.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         },
                         new Team
                         {
@@ -328,14 +226,7 @@ namespace FootballLeague.Infrastructure.Db
                             Description = "Description of Team B",
                             LogoUrl = "/images/seraing.png",
                             LeagueId = 1,
-                            Statistics = new Statistics()
-                            {
-                                NumberOfDefeats = 15,
-                                NumberOfDraws = 4,
-                                NumberOfMatches = 34,
-                                NumberOfWins = 15,
-                                TotalPoints = 60,
-                            }
+                            
                         }
                     
            );
@@ -509,6 +400,7 @@ namespace FootballLeague.Infrastructure.Db
                         AwayTeamScore = 1,
                         MatchDayId = 2,
                     },
+
                     new Match()
                     {
                         Id = 18,
@@ -519,11 +411,12 @@ namespace FootballLeague.Infrastructure.Db
                         MatchDayId = 2,
                     }
          );
-            */
+            
 
 
 
 
         }
+        */
     }
 }

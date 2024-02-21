@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballLeague.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240220194444_Init3")]
-    partial class Init3
+    [Migration("20240221205350_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,14 +45,6 @@ namespace FootballLeague.Infrastructure.Migrations
                     b.HasIndex("SeasonId");
 
                     b.ToTable("Leagues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Jupiler League",
-                            SeasonId = 1
-                        });
                 });
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.Match", b =>
@@ -128,14 +120,6 @@ namespace FootballLeague.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seasons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndYear = 2023,
-                            StartYear = 2022
-                        });
                 });
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.Team", b =>
@@ -415,43 +399,7 @@ namespace FootballLeague.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("FootballLeague.Domain.Entities.Statistics", "Statistics", b1 =>
-                        {
-                            b1.Property<int>("TeamId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("NumberOfDefeats")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("NumberOfDraws")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("NumberOfMatches")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("NumberOfWins")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("TotalPoints")
-                                .HasColumnType("int");
-
-                            b1.HasKey("TeamId");
-
-                            b1.ToTable("Statistics");
-
-                            b1.WithOwner("Team")
-                                .HasForeignKey("TeamId");
-
-                            b1.Navigation("Team");
-                        });
-
                     b.Navigation("League");
-
-                    b.Navigation("Statistics")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
