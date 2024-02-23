@@ -16,15 +16,15 @@ namespace FootballLeague.Application.User
 
     public class UserContextService : IUserContextService
     {
-        private readonly IHttpContextAccessor _httoContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserContextService(IHttpContextAccessor httoContextAccessor)
+        public UserContextService(IHttpContextAccessor httpContextAccessor)
         {
-            _httoContextAccessor = httoContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
         }
         public LoggedUser GetLoggedUser()
         {
-            var user = _httoContextAccessor.HttpContext?.User;
+            var user = _httpContextAccessor.HttpContext?.User;
 
             var id = user.FindFirst(u => u.Type == ClaimTypes.NameIdentifier)!.Value;
             var email = user.FindFirst(u => u.Type == ClaimTypes.Email)!.Value;

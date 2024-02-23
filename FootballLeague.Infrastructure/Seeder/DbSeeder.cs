@@ -1,5 +1,6 @@
 ﻿using FootballLeague.Domain.Entities;
 using FootballLeague.Infrastructure.Db;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,15 +30,20 @@ namespace FootballLeague.Infrastructure.Seeder
                         EndYear = 2023
                     };
 
+                    _dbContext.Seasons.Add(season);
+                    await _dbContext.SaveChangesAsync();
 
+                    
                     var league = new League()
                     {
                         Name = "Jupiler League",
                         SeasonId = season.Id
                     };
 
-                   
-
+                    _dbContext.Leagues.Add(league);
+                    season.Leagues.Add(league);
+                    await _dbContext.SaveChangesAsync();
+                    
                     var teams = new List<Team>()
                     {
                         new Team
@@ -186,13 +192,227 @@ namespace FootballLeague.Infrastructure.Seeder
                         }
                     };
 
-                    _dbContext.Seasons.Add(season);
-                    _dbContext.Leagues.Add(league);
                     _dbContext.Teams.AddRange(teams);
                     league.Teams.AddRange(teams);
                     await _dbContext.SaveChangesAsync();
 
+
+                    var matchdays = new List<Matchday>()
+                    {
+                         new Matchday()
+                         {
+                            Number = 33,
+                            LeagueId = league.Id
+                         },
+                        new Matchday()
+                        {
+                            Number = 34,
+                            LeagueId = league.Id
+                        }
+                    };
+
+                    _dbContext.Matchdays.AddRange(matchdays);
+                    league.Matchdays.AddRange(matchdays);
+                    await _dbContext.SaveChangesAsync();
+                    
+                    
+                    
+                    var matches = new List<Match>()
+                    {
+                     new Match()
+                        {
+                           HomeTeamId = 2,
+                           AwayTeamId = 18,
+                           HomeTeamScore = 2,
+                           AwayTeamScore = 1,
+                           MatchDayId = 1,
+                       },
+                    new Match()
+                    {
+  
+                        HomeTeamId = 3,
+                        AwayTeamId = 14,
+                        HomeTeamScore = 1,
+                        AwayTeamScore = 0,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+   
+                        HomeTeamId = 13,
+                        AwayTeamId = 5,
+                        HomeTeamScore = 1,
+                        AwayTeamScore = 1,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+   
+                        HomeTeamId = 1,
+                        AwayTeamId = 11,
+                        HomeTeamScore = 5,
+                        AwayTeamScore = 2,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 7,
+                        AwayTeamId = 4,
+                        HomeTeamScore = 0,
+                        AwayTeamScore = 0,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 8,
+                        AwayTeamId = 12,
+                        HomeTeamScore = 3,
+                        AwayTeamScore = 1,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 16,
+                        AwayTeamId = 10,
+                        HomeTeamScore = 0,
+                        AwayTeamScore = 4,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 15,
+                        AwayTeamId = 17,
+                        HomeTeamScore = 1,
+                        AwayTeamScore = 5,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 6,
+                        AwayTeamId = 9,
+                        HomeTeamScore = 3,
+                        AwayTeamScore = 1,
+                        MatchDayId = 1,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 4,
+                        AwayTeamId = 15,
+                        HomeTeamScore = 7,
+                        AwayTeamScore = 0,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 11,
+                        AwayTeamId = 13,
+                        HomeTeamScore = 2,
+                        AwayTeamScore = 3,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 5,
+                        AwayTeamId = 16,
+                        HomeTeamScore = 1,
+                        AwayTeamScore = 2,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 10,
+                        AwayTeamId = 6,
+                        HomeTeamScore = 3,
+                        AwayTeamScore = 2,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 14,
+                        AwayTeamId = 2,
+                        HomeTeamScore = 2,
+                        AwayTeamScore = 4,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 17,
+                        AwayTeamId = 8,
+                        HomeTeamScore = 2,
+                        AwayTeamScore = 3,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 9,
+                        AwayTeamId = 1,
+                        HomeTeamScore = 2,
+                        AwayTeamScore = 2,
+                        MatchDayId = 2,
+                    },
+                    new Match()
+                    {
+                        HomeTeamId = 12,
+                        AwayTeamId = 3,
+                        HomeTeamScore = 0,
+                        AwayTeamScore = 1,
+                        MatchDayId = 2,
+                    },
+
+                    new Match()
+                    {
+                        HomeTeamId = 18,
+                        AwayTeamId = 7,
+                        HomeTeamScore = 1,
+                        AwayTeamScore = 1,
+                        MatchDayId = 2,
+                    }
+                    };
+
+                    _dbContext.Matches.AddRange(matches);
+                    await _dbContext.SaveChangesAsync();
+                    
+
+                    
+                    foreach (var match in matches)
+                    {
+                        var matchday = _dbContext.Matchdays
+                            .Include(m => m.Matches)
+                            .FirstOrDefault(m => m.Id == match.MatchDayId);
+
+                        if (matchday != null)
+                        {
+                            matchday.Matches.Add(match);
+                        }
+
+
+                        var homeTeam = _dbContext.Teams
+                            .Include(t => t.Matches)
+                            .FirstOrDefault(t => t.Id == match.HomeTeamId);
+
+                        var awayTeam = _dbContext.Teams
+                            .Include(t => t.Matches)
+                            .FirstOrDefault(t => t.Id == match.AwayTeamId);
+
+                        if (homeTeam != null)
+                        {
+                            homeTeam.Matches.Add(match);
+                            _dbContext.Update(homeTeam);
+                        }
+
+                        if (awayTeam != null)
+                        {
+                            awayTeam.Matches.Add(match);
+                            _dbContext.Update(awayTeam);
+                        }
+                    }  
+                    
+                    await _dbContext.SaveChangesAsync();
+                  
+                    
                 }
+
+
             }
         }
     }

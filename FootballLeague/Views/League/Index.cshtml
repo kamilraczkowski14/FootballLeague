@@ -1,41 +1,53 @@
 ﻿@model FootballLeague.Domain.Entities.League
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ligi";
 }
 
 
 <style>
     .custom-table {
-        background-color: #f8f9fa; /* Lekko ciemniejsze tło */
-        width: 70%;
         font-weight: bold;
-    }
-
-    .small-table {
-        width: 65%; /* Ustawia szerokość tabeli na 50% */
-        font-size: 15px; /* Zmniejsza rozmiar czcionki w tabeli */
-        text-align: left;
-        font-weight: bold;
-        border: 3px solid red;
+        max-width: 70%;
+        margin: 0 auto;
     }
 
     td {
         cursor: pointer;
     }
 
+    .legend {
+        margin-top: 50px;
+    }
+
+    .legend-item {
+        display: block;
+        margin-bottom: 10px;
+    }
 </style>
 
-<h1>Index</h1>
-
 <div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="seasonFilter" class="form-label">Sezon:</label>
+            <select class="form-select" id="seasonFilter" onchange="applyFilters()">
+                <option value="2022/2023">2022/2023</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="leagueFilter" class="form-label">Liga:</label>
+            <select class="form-select" id="leagueFilter" onchange="applyFilters()">
+                <option value="Jupiler League">Jupiler League</option>
+            </select>
+            <br /><br />
+        </div>
+    </div>
+
     <h1 class="text-center">Jupiler League</h1>
     <hr>
     <div class="table-responsive">
-        <!-- Dodany kontener dla responsywności tabeli -->
         <table class="table table-hover table-borderless custom-table">
             <thead class="thead-dark">
-                <!-- Dodane ciemne tło dla nagłówka -->
                 <tr>
                     <th scope="col">Pozycja</th>
                     <th scope="col"></th>
@@ -45,29 +57,40 @@
                 </tr>
             </thead>
             <tbody>
+                @{
+                    int index = 0;
+                }
                 @foreach (var team in Model.Teams)
                 {
-                    <tr  onclick="handleRowClick(this)">
+                    <tr class="@(index == 0 ? "table-warning" :
+                                (index >= 1 && index <= 3 ? "table-primary" :
+                                (index >= 4 && index <= 7 ? "table-info" :
+                                (index >= 15 ? "table-danger" : ""))))" onclick="handleRowClick(this)">
                         <td>@team.Id</td>
                         <td><img src="@team.LogoUrl" alt="Team Logo" style="width: 26px; height: 30px;"></td>
                         <td>@team.Name</td>
                         <td>70</td>
                         <td>82:26</td>
                     </tr>
+                    index++;
                 }
             </tbody>
         </table>
-    </div>
-    <a href="#" class="btn btn-secondary">Back to List</a>
-</div>
 
+        <!-- Legenda kolorów -->
+        <div class="legend">
+            <div class="legend-item"><span class="badge bg-warning">Zwycięzca</span></div>
+            <div class="legend-item"><span class="badge bg-primary">Awans - Liga Europy</span></div>
+            <div class="legend-item"><span class="badge bg-info">Awans - Liga Konferencji</span></div>
+            <div class="legend-item"><span class="badge bg-danger">Spadek do 2 ligi</span></div>
+        </div>
+    </div>
+</div>
 
 
 <script>
     function handleRowClick(row) {
-        // Tutaj możesz umieścić kod obsługi kliknięcia wiersza
         console.log("Kliknięto wiersz: ", row);
-        // Przykładowo, możesz pobrać dane z wiersza
         var cells = row.getElementsByTagName("td");
         var teamName = cells[2].innerText;
         alert("Kliknięto drużynę: " + teamName);

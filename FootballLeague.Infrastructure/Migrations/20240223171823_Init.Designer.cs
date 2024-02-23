@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballLeague.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240221205350_Init")]
+    [Migration("20240223171823_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -357,7 +357,7 @@ namespace FootballLeague.Infrastructure.Migrations
             modelBuilder.Entity("FootballLeague.Domain.Entities.League", b =>
                 {
                     b.HasOne("FootballLeague.Domain.Entities.Season", "Season")
-                        .WithMany()
+                        .WithMany("Leagues")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -383,7 +383,7 @@ namespace FootballLeague.Infrastructure.Migrations
             modelBuilder.Entity("FootballLeague.Domain.Entities.Matchday", b =>
                 {
                     b.HasOne("FootballLeague.Domain.Entities.League", "League")
-                        .WithMany()
+                        .WithMany("Matchdays")
                         .HasForeignKey("LeagueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -455,12 +455,19 @@ namespace FootballLeague.Infrastructure.Migrations
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.League", b =>
                 {
+                    b.Navigation("Matchdays");
+
                     b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.Matchday", b =>
                 {
                     b.Navigation("Matches");
+                });
+
+            modelBuilder.Entity("FootballLeague.Domain.Entities.Season", b =>
+                {
+                    b.Navigation("Leagues");
                 });
 
             modelBuilder.Entity("FootballLeague.Domain.Entities.Team", b =>

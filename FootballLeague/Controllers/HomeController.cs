@@ -17,29 +17,5 @@ namespace FootballLeague.Controllers
         {
             return View();
         }
-        public IActionResult Privacy()
-        {
-            var model = new List<Person>()
-            {
-                new Person()
-                {
-                    FirstName = "Kam",
-                    LastName = "Test",
-                },
-                new Person()
-                {
-                    FirstName = "cs",
-                    LastName = "Tet",
-                }
-            };
-
-            return View(model);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

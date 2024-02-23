@@ -17,5 +17,6 @@ namespace FootballLeague.Application.UserContext
         public string Id { get; set; }
         public string Email { get; set; }
 
+
     }
 }

@@ -13,6 +13,7 @@ namespace FootballLeague.Domain.Entities
         public int SeasonId { get; set; } = default!;
         public Season Season { get; set; } = default!;
         public List<Team> Teams { get; set; } = default!;
+        public List<Matchday> Matchdays { get; set; } = default!;
         
     }
 }
