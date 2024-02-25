@@ -1,4 +1,6 @@
 ﻿
+using AutoMapper;
+using FootballLeague.Application.Dtos;
 using FootballLeague.Domain.Entities;
 using FootballLeague.Domain.Interfaces;
 using FootballLeague.Infrastructure.Db;
@@ -14,10 +16,12 @@ namespace FootballLeague.Infrastructure.Repositories
     internal class LeagueRepository : ILeagueRepository
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public LeagueRepository(ApplicationDbContext dbContext) 
+        public LeagueRepository(ApplicationDbContext dbContext, IMapper mapper) 
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public async Task<League> Get(int leagueId)
@@ -25,6 +29,7 @@ namespace FootballLeague.Infrastructure.Repositories
             var league = await _dbContext.Leagues
                 .Include(l => l.Teams)
                 .FirstOrDefaultAsync(l => l.Id == leagueId);
+
             return league;
         }
     }

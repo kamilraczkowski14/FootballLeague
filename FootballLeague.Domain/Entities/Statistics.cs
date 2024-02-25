@@ -10,8 +10,7 @@ namespace FootballLeague.Domain.Entities
     {
         public int NumberOfMatches { get; set; }
         public int TotalPoints { get; set; }
-        public int NumberOfWins { get; set; }
-        public int NumberOfDraws { get; set; }
-        public int NumberOfDefeats { get; set; }
+        public int ScoredGoals { get; set; }
+        public int ConcededGoals { get; set; }
     }
 }

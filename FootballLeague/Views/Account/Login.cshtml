@@ -1,0 +1,36 @@
+﻿@using FootballLeague.Models
+@model Login
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Logowanie</h5>
+                    <form asp-controller="Account" asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label">Nazwa użytkownika</label>
+                            <input asp-for="Username" class="form-control" placeholder="Podaj nazwę użytkownika">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Hasło</label>
+                            <input asp-for="Password" class="form-control" placeholder="Podaj hasło">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <button type="submit" class="btn btn-primary">Zaloguj się</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            <p>Nie masz konta? <a asp-asp-controller="Account" asp-action="Register">Zarejestruj się</a></p>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<FootballLeague.Application.Dtos.TeamDto>
+
+@{
+    ViewData["Title"] = "Twoje zespoły";
+}
+
+<style>
+    .card:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+    }
+</style>
+
+<div style="margin-top: 50px;">
+    <div class="row justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div id="teamCard-@item.Id" class="col-md-3 mb-3">
+                <div class="card border rounded hover-shadow hover-zoom position-relative" onclick="openTeamModal('@item.Id')">
+                    <div class="card-img-top bg-light d-flex justify-content-center align-items-center" style="height: 100px;">
+                        <img src="@item.LogoUrl" class="img-fluid" style="max-height: 80px; max-width: 80px;" alt="Team Logo">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@item.Name</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="modal fade" id="teamModal" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button title="Usuń z ulubionych" onclick="deleteTeam()" type="button"
+                        class="btn btn-sm btn-danger float-start m-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="teamModalContent">
+         
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function openTeamModal(teamId) {
+        $('#teamModal .btn-danger').attr('data-team-id', teamId);
+        fetch(`/Team/TeamDetail?teamId=${teamId}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('teamModalContent').innerHTML = data;
+                $('#teamModal').modal('show');
+            })
+            .catch(error => console.error("Błąd podczas pobierania danych o drużynie:", error));
+    }
+
+    
+    function deleteTeam() {
+    var teamId = $('#teamModal .btn-danger').attr('data-team-id');
+    var url = "/Team/Delete?teamId=" + teamId;
+    fetch(url, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("Drużyna usunięta z ulubionych");
+            showNotification("success", "Usunąłeś zespół z ulubionych!");
+            $('#teamCard-' + teamId).remove();
+            $('#teamModal').modal('hide'); 
+        } else {
+            console.error("Wystąpił problem podczas usuwania drużyny:", response.statusText);
+        }
+    })
+    .catch(error => console.error("Błąd podczas usuwania drużyny:", error));
+}
+</script> 

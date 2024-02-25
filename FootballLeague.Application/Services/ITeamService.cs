@@ -1,4 +1,5 @@
-﻿using FootballLeague.Domain.Entities;
+﻿using FootballLeague.Application.Dtos;
+using FootballLeague.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace FootballLeague.Application.Services
 {
     public interface ITeamService
     {
-        Task<List<Team>> GetAll();
-        Task<Team> GetById(int teamId);
+        Task<List<TeamDto>> GetAll();
+        Task<TeamDto> GetById(int teamId);
+        Task Add(int teamId);
+        Task Delete(int teamId);
     }
 }

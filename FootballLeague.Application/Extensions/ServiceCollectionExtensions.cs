@@ -1,5 +1,5 @@
 ﻿using FootballLeague.Application.Services;
-using FootballLeague.Application.User;
+using FootballLeague.Application.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,9 @@ namespace FootballLeague.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<ILeagueService, LeagueService>();
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IUserContextService, UserContextService>();
         }
     }

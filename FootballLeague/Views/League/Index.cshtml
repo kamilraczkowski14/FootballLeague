@@ -1,98 +1,208 @@
-﻿@model FootballLeague.Domain.Entities.League
-
-@{
-    ViewData["Title"] = "Ligi";
-}
-
-
+﻿
 <style>
     .custom-table {
         font-weight: bold;
-        max-width: 70%;
+        max-width: 60vw;
         margin: 0 auto;
+
     }
 
     td {
         cursor: pointer;
+        font-weight: bold;
+    }
+
+    th {
+        font-weight: bold;
     }
 
     .legend {
-        margin-top: 50px;
+        margin-top: 20px;
+        width: 10%;
+        text-align: left;
+        margin-left: 200px;
+
     }
 
     .legend-item {
         display: block;
         margin-bottom: 10px;
     }
+
+    .container-center {
+        text-align: center;
+    }
+
+    .container-table {
+        position: relative;
+    }
+
+    .container-details {
+        position: fixed;
+        right: 0;
+        max-height: 80vh;
+        overflow-y: auto;
+        display: none; 
+    }
+
+    .bi-arrow-left-square-fill {
+        font-size: 2em; 
+    }
+
+    .close-icon {
+        position: fixed;
+        top: 600px; 
+        right: 670px; 
+        cursor: pointer;
+        display: none;
+    }
 </style>
 
-<div class="container mt-5">
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label for="seasonFilter" class="form-label">Sezon:</label>
-            <select class="form-select" id="seasonFilter" onchange="applyFilters()">
-                <option value="2022/2023">2022/2023</option>
-            </select>
-        </div>
-        <div class="col-md-6">
-            <label for="leagueFilter" class="form-label">Liga:</label>
-            <select class="form-select" id="leagueFilter" onchange="applyFilters()">
-                <option value="Jupiler League">Jupiler League</option>
-            </select>
-            <br /><br />
-        </div>
-    </div>
+<div class="container mt-5 container-center">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="seasonFilter" class="form-label">Sezon:</label>
+                    <select class="form-select" id="seasonFilter" onchange="applyFilters()">
+                        <option value="2022/2023">2022/2023</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="leagueFilter" class="form-label">Liga:</label>
+                    <select class="form-select" id="leagueFilter" onchange="applyFilters()">
+                        <option value="Jupiler League">Jupiler League</option>
+                    </select>
+                    <br /><br />
+                </div>
+            </div>
 
-    <h1 class="text-center">Jupiler League</h1>
-    <hr>
-    <div class="table-responsive">
-        <table class="table table-hover table-borderless custom-table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Pozycja</th>
-                    <th scope="col"></th>
-                    <th scope="col">Drużyna</th>
-                    <th scope="col">Punkty</th>
-                    <th scope="col">Bramki</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int index = 0;
-                }
-                @foreach (var team in Model.Teams)
-                {
-                    <tr class="@(index == 0 ? "table-warning" :
-                                (index >= 1 && index <= 3 ? "table-primary" :
-                                (index >= 4 && index <= 7 ? "table-info" :
-                                (index >= 15 ? "table-danger" : ""))))" onclick="handleRowClick(this)">
-                        <td>@team.Id</td>
-                        <td><img src="@team.LogoUrl" alt="Team Logo" style="width: 26px; height: 30px;"></td>
-                        <td>@team.Name</td>
-                        <td>70</td>
-                        <td>82:26</td>
-                    </tr>
-                    index++;
-                }
-            </tbody>
-        </table>
+            <div class="d-flex justify-content-between">
+                <div id="tableContainer" class="col-md-12 container-table">
+                    <h1 class="text-center">Jupiler League</h1>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless custom-table mx-auto" style="width: 100%;">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Pozycja</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Drużyna</th>
+                                    <th scope="col">Mecze</th>
+                                    <th scope="col">Punkty</th>
+                                    <th scope="col">Bramki</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 0;
+                                }
+                                @foreach (var team in Model.Teams)
+                                {
+                                    <tr class="@(index == 0 ? "table-warning" :
+                                                    (index >= 1 && index <= 3 ? "table-primary" :
+                                                    (index >= 4 && index <= 7 ? "table-info" :
+                                                    (index >= 15 ? "table-danger" : ""))))" onclick="handleRowClick(@team.Id)">
+                                        <td>@team.Id</td>
+                                        <td><img src="@team.LogoUrl" alt="Team Logo" style="width: 26px; height: 30px;"></td>
+                                        <td>@team.Name</td>
+                                        <td>@team.Statistics.NumberOfMatches</td>
+                                        <td>@team.Statistics.TotalPoints</td>
+                                        <td>@team.Statistics.ScoredGoals:@team.Statistics.ConcededGoals</td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item"><span class="badge bg-warning">Zwycięzca</span></div>
+                        <div class="legend-item"><span class="badge bg-primary">Awans - Liga Europy</span></div>
+                        <div class="legend-item"><span class="badge bg-info">Awans - Liga Konferencji</span></div>
+                        <div class="legend-item"><span class="badge bg-danger">Spadek do 2 ligi</span></div>
+                    </div>
+                </div>
 
-        <!-- Legenda kolorów -->
-        <div class="legend">
-            <div class="legend-item"><span class="badge bg-warning">Zwycięzca</span></div>
-            <div class="legend-item"><span class="badge bg-primary">Awans - Liga Europy</span></div>
-            <div class="legend-item"><span class="badge bg-info">Awans - Liga Konferencji</span></div>
-            <div class="legend-item"><span class="badge bg-danger">Spadek do 2 ligi</span></div>
+                <span title="Zamknij szczegóły zespołu" id="closeIcon" class="close-icon" onclick="hideTeamDetails()">
+                    <i class="bi bi-arrow-left-square-fill"></i>
+                </span>
+              
+                <div id="teamDetailsContainer" class="col-md-6 container-details">
+                   
+                </div>
         </div>
+        
     </div>
 </div>
 
-
 <script>
-    function handleRowClick(row) {
-        console.log("Kliknięto wiersz: ", row);
-        var cells = row.getElementsByTagName("td");
-        var teamName = cells[2].innerText;
-        alert("Kliknięto drużynę: " + teamName);
-    }
+        var initialTableClass = 'col-md-12 container-table';
+        var initialTableMaxWidth = '60vw';
+        var initialLegendDisplay = 'block';
+
+        function hideTeamDetails() {
+            var teamDetailsContainer = document.getElementById("teamDetailsContainer");
+            teamDetailsContainer.innerHTML = '';
+            teamDetailsContainer.style.display = 'none';
+
+            var tableContainer = document.getElementById('tableContainer');
+            tableContainer.className = initialTableClass;
+            var table = document.querySelector('.custom-table');
+            table.style.maxWidth = initialTableMaxWidth;
+
+            var legend = document.querySelector('.legend');
+            legend.style.display = initialLegendDisplay;
+
+            var closeIcon = document.getElementById("closeIcon");
+            closeIcon.style.display = 'none'; 
+            legend.style.marginLeft = '200px';
+        }
+
+        function handleRowClick(teamId) {
+            var url = "/Team/TeamDetail?teamId=" + teamId;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    var teamDetailsContainer = document.getElementById("teamDetailsContainer");
+                    var closeIcon = document.getElementById("closeIcon");
+                    if (data.trim() !== '') {
+                        teamDetailsContainer.innerHTML = data;
+                        teamDetailsContainer.style.display = 'block';
+
+                        var table = document.querySelector('.custom-table');
+                        table.style.maxWidth = '85vh';
+                        var tableContainer = document.getElementById('tableContainer');
+                        tableContainer.className = 'col-md-6 container-table';
+
+                        var legend = document.querySelector('.legend');
+                        legend.style.display = 'flex';
+                        legend.style.marginLeft = '80px';
+
+                        closeIcon.style.display = 'inline'; 
+                    } else {
+                        teamDetailsContainer.innerHTML = '';
+                        teamDetailsContainer.style.display = 'none';
+                        closeIcon.style.display = 'none'; 
+       
+                    }
+                })
+                .catch(error => console.error("Błąd podczas pobierania danych o drużynie:", error));
+        }
+
+        function addToFavorites(teamId) {
+            var url = "/Team/Add?teamId=" + teamId;
+            fetch(url, {
+                method: 'POST',
+            })
+                .then(response => response.text())
+                .then(data => {
+                    showNotification("success", "Dodałeś zespół z ulubionych!");
+                    var addToFavoritesButton = document.getElementById("addToFavoritesButton");
+                    if (addToFavoritesButton) {
+                        addToFavoritesButton.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error("Błąd podczas dodawania drużyny do ulubionych:", error));
+        }
+    </script>
 </script>

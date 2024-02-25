@@ -11,5 +11,7 @@ namespace FootballLeague.Domain.Interfaces
     {
         Task<List<Team>> GetAll();
         Task<Team> GetById(int teamId);
+        Task Add(int teamId);
+        Task Delete(int teamId);
     }
 }

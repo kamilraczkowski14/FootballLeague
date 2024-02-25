@@ -12,6 +12,6 @@ namespace FootballLeague.Domain.Entities
         public int Number { get; set; }
         public int LeagueId { get; set; } 
         public League League { get; set; } = default!;
-        public List<Match> Matches { get; set; } = default!;
+        public List<Match>? Matches { get; set; } 
     }
 }

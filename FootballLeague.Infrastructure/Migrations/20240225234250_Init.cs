@@ -110,8 +110,8 @@ namespace FootballLeague.Infrastructure.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -155,8 +155,8 @@ namespace FootballLeague.Infrastructure.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -219,11 +219,21 @@ namespace FootballLeague.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LeagueId = table.Column<int>(type: "int", nullable: false)
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    Statistics_NumberOfMatches = table.Column<int>(type: "int", nullable: false),
+                    Statistics_TotalPoints = table.Column<int>(type: "int", nullable: false),
+                    Statistics_ScoredGoals = table.Column<int>(type: "int", nullable: false),
+                    Statistics_ConcededGoals = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Teams_Leagues_LeagueId",
                         column: x => x.LeagueId,
@@ -240,6 +250,10 @@ namespace FootballLeague.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HomeTeamId = table.Column<int>(type: "int", nullable: false),
                     AwayTeamId = table.Column<int>(type: "int", nullable: false),
+                    HomeTeamName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AwayTeamName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HomeTeamLogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AwayTeamLogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HomeTeamScore = table.Column<int>(type: "int", nullable: false),
                     AwayTeamScore = table.Column<int>(type: "int", nullable: false),
                     MatchDayId = table.Column<int>(type: "int", nullable: false),
@@ -324,6 +338,11 @@ namespace FootballLeague.Infrastructure.Migrations
                 name: "IX_Teams_LeagueId",
                 table: "Teams",
                 column: "LeagueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_UserId",
+                table: "Teams",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -351,13 +370,13 @@ namespace FootballLeague.Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Matchdays");
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Leagues");

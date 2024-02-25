@@ -12,9 +12,8 @@ namespace FootballLeague.Controllers
             _service = service;
         }
 
-
-        [HttpGet("League/{leagueId}")]
-        public async Task<IActionResult> Index(int leagueId)
+        [HttpGet]
+        public async Task<IActionResult> Index(int leagueId=1)
         {
             var league = await _service.Get(leagueId);
             return View(league);
