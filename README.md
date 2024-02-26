@@ -12,6 +12,7 @@ Zostały stworzone encje:
 - Team - reprezentująca drużyny. Baza danych została zasilona 18 drużynami i zostały przypisane do ligi belgijskiej
 - Matchday - reprezentująca kolejki ligowe. Baza danych została zasilona 2 kolejkami które zostały przypisane do ligi belgijskiej
 - Match - reprezentująca mecze. Baza danych została zasilona 18 meczami i zostały przypisane odpowiednio do odpowiedniej kolejki. Każdy mecz został przypisany do dwóch drużyn.
+  
 Baza danych została zasilona danymi w klasie DbSeeder.
 
 
