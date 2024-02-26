@@ -7,11 +7,11 @@ Dzięki Clean Architekture łatwiejsze jest tesowanie aplikacji, zarządzanie ni
 
 
 Zostały stworzone encje:
-Season - reprezentująca sezony. Baza danych została zasilona jednym sezonem 2022/2023
-League - reprezentująca ligi. Baza danych została zasilona jedną ligą belgijską i została przypisana do sezonu 2022/2023
-Team - reprezentująca drużyny. Baza danych została zasilona 18 drużynami i zostały przypisane do ligi belgijskiej
-Matchday - reprezentująca kolejki ligowe. Baza danych została zasilona 2 kolejkami które zostały przypisane do ligi belgijskiej
-Match - reprezentująca mecze. Baza danych została zasilona 18 meczami i zostały przypisane odpowiednio do odpowiedniej kolejki. Każdy mecz został przypisany do dwóch drużyn.
+- Season - reprezentująca sezony. Baza danych została zasilona jednym sezonem 2022/2023
+- League - reprezentująca ligi. Baza danych została zasilona jedną ligą belgijską i została przypisana do sezonu 2022/2023
+- Team - reprezentująca drużyny. Baza danych została zasilona 18 drużynami i zostały przypisane do ligi belgijskiej
+- Matchday - reprezentująca kolejki ligowe. Baza danych została zasilona 2 kolejkami które zostały przypisane do ligi belgijskiej
+- Match - reprezentująca mecze. Baza danych została zasilona 18 meczami i zostały przypisane odpowiednio do odpowiedniej kolejki. Każdy mecz został przypisany do dwóch drużyn.
 Baza danych została zasilona danymi w klasie DbSeeder.
 
 
