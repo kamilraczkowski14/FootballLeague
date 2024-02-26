@@ -2,7 +2,7 @@ Aplikacja została zbudowana zgodnie z Clean Architecture. Zostały stworzone 4 
 - FootballLeague.Domain: zawierający logikę biznesową
 - FootballLeague.Application: obsługuje zapytania 
 - FootballLeague: moduł prezentacji 
-- FootballLeague.Infrastructure: odpowiada za konfigurację bazy danych, łączenie z bazą danych, łączenie z zewnętrznymi usługami
+- FootballLeague.Infrastructure: odpowiada za konfigurację bazy danych, łączenie z bazą danych, łączenie z zewnętrznymi usługami.
 Dzięki Clean Architekture łatwiejsze jest tesowanie aplikacji, zarządzanie nią, elastyczność w modyfikacjach aplikacji według zasad solid
 
 
