@@ -34,6 +34,6 @@ Jako, że w aplikacji jest jeden zespół i jedna liga - panel filtrujący z opc
 
 
 Możliwości dalszego rozwoju aplikacji:
-Dla wszystkich użytkowników - rozszerzenie aplikacji o inne sezony, ligi, zespoły, oprócz samej historii meczów dodać liste najbliższych rozgrywane meczów przez dany zespół i ich daty rozgrywania, tabela mogłaby przyjąć dodatkowe filtry - na przykład ilość zdobytych punktów drużyn na przestrzeni jakiegoś określonego czasu podanego przez użytkownika
-Dla zalogowanych użytkowników - możliwość interakcji z innymi użytkownikami, po dodaniu zespołu do ulubionych, możliwość dołączenia do kanału czatowego danego zespołu i tam możliwość korespondencji z fanami o meczach ulubionejk drużyny. Każdy użytkownik mógłby dodawać prywatne i publiczne kanały, dołączać do innych prywatnych kanałów lub publicznych.
+- Dla wszystkich użytkowników - rozszerzenie aplikacji o inne sezony, ligi, zespoły, oprócz samej historii meczów dodać liste najbliższych rozgrywane meczów przez dany zespół i ich daty rozgrywania, tabela mogłaby przyjąć dodatkowe filtry - na przykład ilość zdobytych punktów drużyn na przestrzeni jakiegoś określonego czasu podanego przez użytkownika
+- Dla zalogowanych użytkowników - możliwość interakcji z innymi użytkownikami, po dodaniu zespołu do ulubionych, możliwość dołączenia do kanału czatowego danego zespołu i tam możliwość korespondencji z fanami o meczach ulubionejk drużyny. Każdy użytkownik mógłby dodawać prywatne i publiczne kanały, dołączać do innych prywatnych kanałów lub publicznych.
 
